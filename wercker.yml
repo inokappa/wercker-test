@@ -7,7 +7,7 @@ build:
         code: |-
           sudo sed -i -e 's/us-east-1.ec2.archive.ubuntu.com\|security.ubuntu.com/old-releases.ubuntu.com/g' /etc/apt/sources.list && sudo apt-get update -y 
     - inokappa/rvm-install:
-        ruby-version: 2.2.2
+        version: 2.2.2
     - rvm-use:
         version: 2.2.2
     - script:
