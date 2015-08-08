@@ -1,0 +1,25 @@
+box: wercker-labs/docker
+no-response-timeout: 10
+build:
+  steps:
+    - script:
+        name: apt-get update
+        code: |-
+          sudo sed -i -e 's/us-east-1.ec2.archive.ubuntu.com\|security.ubuntu.com/old-releases.ubuntu.com/g' /etc/apt/sources.list && sudo apt-get update -y 
+    - inokappa/rvm-install:
+        ruby-version: 2.2.2
+    - rvm-use:
+        version: 2.2.2
+    - script:
+        name: check ruby
+        code: |
+           ruby --version
+           gem --version
+
+  after-steps:
+    - sherzberg/slack-notify:
+        subdomain: $SLACK_TEAM
+        token: $SLACK_TOKEN
+        channel: $SLACK_CHANNEL
+        username: wercker
+        icon_url: https://avatars3.githubusercontent.com/u/1695193?s=140
