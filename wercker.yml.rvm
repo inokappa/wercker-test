@@ -6,12 +6,15 @@ build:
         name: apt-get update
         code: |-
           sudo sed -i -e 's/us-east-1.ec2.archive.ubuntu.com\|security.ubuntu.com/old-releases.ubuntu.com/g' /etc/apt/sources.list && sudo apt-get update -y 
-    - inokappa/terraform-install:
-          version: 0.6.2
+    - inokappa/rvm-install:
+        version: 2.2.2
+    - rvm-use:
+        version: 2.2.2
     - script:
-        name: check terraform
+        name: check ruby
         code: |
-          terraform version    
+           ruby --version
+           gem --version
 
   after-steps:
     - sherzberg/slack-notify:
